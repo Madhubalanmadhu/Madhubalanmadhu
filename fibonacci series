@@ -1,0 +1,15 @@
+#include<stdio.h>
+int main()
+{
+	int a=0,b=1,c;
+	printf("Madhubalan I\n192321142\n");
+	printf("%d\n%d",a,b);
+	for(int i=2;i<10;i++)
+	{
+		c=a+b;
+		printf("\n%d",c);
+		a=b;
+		b=c;
+	}
+}
+C:\Users\sudharsan\Downloads\WhatsApp Image 2023-12-20 at 10.43.58 PM.jpeg
