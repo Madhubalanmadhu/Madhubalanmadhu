@@ -1,0 +1,31 @@
+#include <stdio.h> 
+#define N 4
+void transpose(int A[][N], int B[][N]) 
+{ 
+   printf("madhubalan I\n192321142\n");
+	int i, j; 
+	for (i = 0; i < N; i++) 
+		for (j = 0; j < N; j++) 
+			B[i][j] = A[j][i]; 
+} 
+int main() 
+{ 
+	int A[N][N] = { { 1, 1, 1,5},
+					{ 2, 2, 2 ,6},
+					{ 3, 3, 3,7},
+					{ 3,5,7,8} }; 
+
+	int B[N][N], i, j; 
+
+	transpose(A, B); 
+
+	printf("Result matrix is \n"); 
+	for (i = 0; i < N; i++) { 
+		for (j = 0; j < N; j++) 
+			printf("%d ", B[i][j]); 
+		printf("\n"); 
+	} 
+
+	return 0; 
+}
+C:\Users\sudharsan\Downloads\WhatsApp Image 2023-12-21 at 9.35.30 AM.jpeg
