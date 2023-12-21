@@ -1,0 +1,23 @@
+#include<stdio.h>
+int factorial(int n);
+int main()
+{
+  int num;
+  printf("madhubalan I\n192321142\n");
+  printf("enter the integer: ");
+  scanf("%d",&num);
+  printf("the factorail of %d is:%d", num, factorial(num));
+return 0;
+}
+int factorial(int n)
+{
+  if (n==0)
+  {
+    return 1;
+  }
+  else
+  {
+    return n*factorial(n-1);
+  }
+}
+C:\Users\sudharsan\Downloads\WhatsApp Image 2023-12-20 at 10.32.28 PM.jpeg
