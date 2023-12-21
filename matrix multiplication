@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+void matrixMultiplication(int A[][3], int B[][3], int C[][3]) {
+    int i, j, k;
+    printf("madhubalan I\n192321142\n");
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            C[i][j] = 0;
+            for (k = 0; k < 3; k++) {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+
+int main() {
+    int A[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int B[3][3] = {{1, 8, 5}, {8, 5, 4}, {3, 9, 1}};
+    int C[3][3];
+
+    matrixMultiplication(A, B, C);
+    printf("Resultant Matrix:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%d ", C[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
