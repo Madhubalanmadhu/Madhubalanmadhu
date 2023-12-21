@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main() {
+	printf("madhubalan I\n192321142\n");
+    int arr[] = {5, 2, 9, 1, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int key = 9;
+    int result = linearSearch(arr, n, key);
+    if (result == -1) {
+        printf("Element not found\n");
+    } else {
+        printf("Element found at index %d\n", result);
+    }
+    return 0;
+}
+C:\Users\sudharsan\Downloads\WhatsApp Image 2023-12-20 at 10.50.06 PM.jpeg
