@@ -29,4 +29,5 @@ int main()
    }
  
    return 0;
-}![IMG-20231220-WA0007](https://github.com/Madhubalanmadhu/Madhubalanmadhu/assets/154415790/6f9c25db-0977-459c-bf4a-877066ef899e)
+}
+![IMG-20231220-WA0007](https://github.com/Madhubalanmadhu/Madhubalanmadhu/assets/154415790/6f9c25db-0977-459c-bf4a-877066ef899e)
