@@ -1,33 +1,26 @@
-#include <stdio.h>
- 
-int main()
-{
-   int m, n, c, d, first[10][10], second[10][10], sum[10][10];
-   printf("madhubalan I\n192321142\n");
-   printf("Enter the number of rows and columns of matrix\n");
-   scanf("%d%d", &m, &n);
-   printf("Enter the elements of first matrix\n");
- 
-   for (c = 0; c < m; c++)
-      for (d = 0; d < n; d++)
-         scanf("%d", &first[c][d]);
- 
-   printf("Enter the elements of second matrix\n");
- 
-   for (c = 0; c < m; c++)
-      for (d = 0 ; d < n; d++)
-         scanf("%d", &second[c][d]);
-   
-   printf("Sum of entered matrices:-\n");
-   
-   for (c = 0; c < m; c++) {
-      for (d = 0 ; d < n; d++) {
-         sum[c][d] = first[c][d] + second[c][d];
-         printf("%d\t", sum[c][d]);
-      }
-      printf("\n");
-   }
- 
-   return 0;
-}
-![IMG-20231220-WA0007](https://github.com/Madhubalanmadhu/Madhubalanmadhu/assets/154415790/6f9c25db-0977-459c-bf4a-877066ef899e)
+Day 1 - Arrays
+
+1.1 Addition of Two Matrices
+1.2 Multiplication of Two Matrices
+1.3 Sum of Diagonals
+1.4 Transpose of a Matrix
+1.5 Insert element in array
+1.6Delete element in array
+1.7 Merging arrays
+1.8 Find duplicate element
+1.9 Display the location of given element in array and print it
+1.10 Ascending/Descending/Alphabet order
+1.11 Check validation of String
+1.12 Largest element in matrix
+1.13 Repeated twice in array
+1.14 Print odd and even in given array
+1.15 Sum of row and column in matrix
+1.16 Given array elements display 5th iterated element
+Day 2 - Recursion and Search
+
+2.1 Find Fibbonacci series upto n numbers and it's sum
+2.2 Find the Factorial of a given number
+2.3 Find the nth Fibbonacci number using recursion
+2.4 Find the Factorial of a given number using recursion
+2.5 Linear search of array
+2.7 Binary search of array
