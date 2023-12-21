@@ -1,0 +1,19 @@
+#include <stdio.h>
+int fibonacci(int n) 
+{
+    if (n <= 1) 
+    {
+        return n;
+    }
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+
+int main() 
+{
+	
+    int n =12;
+    printf("Madhubalan I\n");
+    printf("Fibonacci number at position %d is :%d", n, fibonacci(n));
+    return 0;
+}
+C:\Users\sudharsan\Downloads\WhatsApp Image 2023-12-20 at 10.43.58 PM.jpeg
