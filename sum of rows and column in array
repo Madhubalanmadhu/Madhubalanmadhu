@@ -1,0 +1,53 @@
+//Sum of row and col matrix
+
+#include<stdio.h>
+int main()
+{
+	printf("madhubalan\n192321142\n");
+	int a[100][100],n,row=0,col=0,trow=0,tcol=0;
+	printf("Enter array Size\n");
+	scanf("%d",&n);
+	printf("Enter array element\n");
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+		scanf("%d",&a[i][j]);
+		}
+	}
+	for(int i=0;i<n;i++)
+	{
+		row=0;
+		for(int j=0;j<n;j++)
+		{
+		printf("%d ",a[i][j]);
+		
+		}
+		printf("\n");
+	}
+
+for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			row+=a[i][j];
+			
+			trow+=row;
+			
+	}
+	printf("sum of row %d is: %d \n",i+1,row);
+}
+printf("-----------------\n");
+for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			col+=a[i][j];
+			
+			tcol+=col;
+			
+	}
+	printf("sum of col %d is: %d \n",i+1,col);
+}
+printf("Sum total row is: %d\nSum of total column: %d",trow,tcol);
+}
