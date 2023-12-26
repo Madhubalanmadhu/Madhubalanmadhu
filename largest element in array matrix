@@ -1,0 +1,21 @@
+#include<stdio.h>
+int main()
+{
+	printf("madhubalan I\n192321142\n");
+	long int a[100],n,max;
+	printf("Enter array Size\n");
+	scanf("%d",&n);
+	printf("Enter array element\n");
+	for(int i=0;i<n;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+		for(int i=0;i<n;i++)
+	{
+		if(a[i]>a[i+1])
+		{
+			max=a[i];
+		}
+	}
+	printf("Largest element in given matrix is %d.");
+}
