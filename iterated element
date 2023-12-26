@@ -1,0 +1,21 @@
+#include<stdio.h>
+int main()
+{
+	printf("madhubalan\n192321142\n");
+	int a[100],n,ele,pos;
+	printf("Enter array Size\n");
+	scanf("%d",&n);
+	printf("Enter array element\n");
+	for(int i=0;i<n;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+	printf("Array elements in 5th iterated element is: ");
+	for(int i=0;i<n;i++)
+	{
+		if(a[i]==5)
+		{
+			printf("%d",a[i]);
+		}
+	}
+}
