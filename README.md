@@ -47,3 +47,29 @@ Day 2 - Recursion and Search
 
 2.7 Binary search of array
 
+
+Day 3 – Singly Linked List
+
+	Implement SLL with following operations
+	
+Insert(Beg,Mid,End)
+
+Delete(Beg,Mid,End)
+
+Display
+
+Search
+
+Sort
+
+Find Max and Min
+
+	To determine whether a given singly linked list is a palindrome
+	
+	To merge two sorted singly linked lists into a single sorted linked list
+	
+	Print no of nodes in the given linked list
+	
+	Intersect SLL
+
+	Reverse - SLL
