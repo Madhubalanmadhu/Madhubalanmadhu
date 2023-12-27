@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+} *head, *tail, *n, *r, *head1, *tail1;
+
+void display(struct node *head) {
+    struct node *t;
+    t = head;
+    while (t != NULL) {
+        printf("%d ", t->data);
+        t = t->next;
+    }
+    printf("\n");
+}
+
+void ins_end(int num) {
+    n = (struct node *)malloc(sizeof(struct node));
+    n->data = num;
+    n->next = NULL;
+    if (head == NULL) {
+        head = tail = n;
+    } else {
+        tail->next = n;
+        tail = n;
+    }
+}
+
+void rev() {
+
+    head1 = NULL;
+    struct node *t, *tp;
+    t = head;
+    while (t != NULL) {
+        tp = (struct node *)malloc(sizeof(struct node));
+        tp->data = t->data;
+        tp->next = head1;
+        head1 = tp;
+        t = t->next;
+    }
+}
+
+
+
+int main() {
+    printf("Name: madhubalan\nReg No:192321142\n");
+    ins_end(1);
+    ins_end(5);
+    ins_end(4);
+    ins_end(1);
+    display(head); 
+    rev();
+    display(head1);
+    return 0;
+}
