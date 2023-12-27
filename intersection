@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+};
+void display(struct node *head) {
+    struct node *t = head;
+    while (t != NULL) {
+        printf("%d ", t->data);
+        t = t->next;
+    }
+    printf("\n");
+}
+void insertEnd(struct node **head, int num) {
+    struct node *n = (struct node *)malloc(sizeof(struct node));
+    n->data = num;
+    n->next = NULL;
+    if (*head == NULL) {
+        *head = n;
+    } else {
+        struct node *temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = n;
+    }
+}
+struct node *intersect(struct node *head1, struct node *head2) {
+    struct node *result = NULL;
+    struct node *tail = NULL;
+    while (head1 != NULL && head2 != NULL) {
+        if (head1->data == head2->data) {
+            insertEnd(&result, head1->data);
+            if (tail == NULL) {
+                tail = result;
+            } else {
+                while (tail->next != NULL) {
+                    tail = tail->next;
+                }
+            }
+            head1 = head1->next;
+            head2 = head2->next;
+        } else if (head1->data < head2->data) {
+            head1 = head1->next;
+        } else {
+            head2 = head2->next;
+        }
+    }
+    return result;
+}
+int main() {
+    struct node *list1 = NULL;
+    struct node *list2 = NULL;
+    insertEnd(&list1, 2);
+    insertEnd(&list1, 4);
+    insertEnd(&list1, 6);
+    insertEnd(&list1, 8);
+    insertEnd(&list2, 4);
+    insertEnd(&list2, 6);
+    insertEnd(&list2, 8);
+    insertEnd(&list2, 10);
+    printf("madhubalan\n192321142\n");
+    printf("List 1: ");
+    display(list1);
+    printf("List 2: ");
+    display(list2);
+    struct node *intersection = intersect(list1, list2);
+    printf("Intersection: ");
+    display(intersection);
+    while (list1 != NULL) {
+        struct node *temp = list1;
+        list1 = list1->next;
+        free(temp);
+    }
+    while (list2 != NULL) {
+        struct node *temp = list2;
+        list2 = list2->next;
+        free(temp);
+    }
+    while (intersection != NULL) {
+        struct node *temp = intersection;
+        intersection = intersection->next;
+        free(temp);
+    }
+    return 0;
+}
