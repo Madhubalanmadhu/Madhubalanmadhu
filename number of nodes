@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+} *head, *tail, *n;
+
+void display(struct node *head) {
+    struct node *t;
+    t = head;
+    while (t != NULL) {
+        printf("%d ", t->data);
+        t = t->next;
+    }
+    printf("\n");
+}
+
+void ins_end(struct node **head,int num) {
+    n = (struct node *)malloc(sizeof(struct node));
+    n->data = num;
+    n->next = NULL;
+    if (*head == NULL) {
+        *head = tail = n;
+    } else {
+        tail->next = n;
+        tail = n;
+    }
+}
+void count(struct node *head){
+	int count=0;
+	while(head!=NULL){
+		count++;
+		head=head->next;
+	}
+	printf("\nThe number of nodes in the list is %d",count);
+}
+
+int main() {
+    printf("Name: madhubalan\nReg No:192321142\n");
+    struct node *list1=NULL;
+    struct node *list2=NULL;
+    ins_end(&list1,1);
+    ins_end(&list1,2);
+    ins_end(&list1,3);
+    display(list1);
+    count(list1);
+
+    return 0;
+}
