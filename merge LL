@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+} *head, *tail, *n;
+
+void display(struct node *head) {
+    struct node *t;
+    t = head;
+    while (t != NULL) {
+        printf("%d ", t->data);
+        t = t->next;
+    }
+    printf("\n");
+}
+
+void ins_end(struct node **head,int num) {
+    n = (struct node *)malloc(sizeof(struct node));
+    n->data = num;
+    n->next = NULL;
+    if (*head == NULL) {
+        *head = tail = n;
+    } else {
+        tail->next = n;
+        tail = n;
+    }
+}
+void merg(struct node **head1, struct node **head2) {
+    struct node *newlist = NULL;
+    while (*head1 != NULL) {
+        n = *head1;
+        *head1 = (*head1)->next;
+        n->next = NULL;
+
+        if (newlist == NULL) {
+            newlist = n;
+            tail = n;
+        } else {
+            tail->next = n;
+            tail = n;
+        }
+    }
+    while (*head2 != NULL) {
+        n = *head2;
+        *head2 = (*head2)->next;
+        n->next = NULL;
+
+        if (newlist == NULL) {
+            newlist = n;
+            tail = n;
+        } else {
+            tail->next = n;
+            tail = n;
+        }
+    }
+    struct node *t = newlist;
+    while (t != NULL) {
+        printf("%d ", t->data);
+        t = t->next;
+    }
+    printf("\n");
+}
+
+
+int main() {
+    printf("Name: madhubalan\nReg No:192321142\n");
+    struct node *list1=NULL;
+    struct node *list2=NULL;
+    ins_end(&list1,1);
+    ins_end(&list1,2);
+    ins_end(&list1,3);
+    display(list1);
+    ins_end(&list2,4);
+    ins_end(&list2,6);
+    ins_end(&list2,5);
+    display(list2);
+    merg(&list1,&list2);
+
+    return 0;
+}
+
+C:\Users\Admin\Downloads\WhatsApp Image 2023-12-26 at 9.43.46 PM.jpeg
