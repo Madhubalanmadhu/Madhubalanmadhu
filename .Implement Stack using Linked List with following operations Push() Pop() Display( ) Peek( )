@@ -1,0 +1,88 @@
+#include<stdio.h>
+#include<stdlib.h>
+//1
+struct node{
+	int data;
+	struct node *next;
+}*top,*n;
+//2
+void push(int num)
+{
+n=(struct node*)malloc(sizeof(struct node));
+if(!n)
+{
+	printf("Overflow");
+	exit(1);
+}
+else
+{
+n->data=num;
+n->next=top;
+top=n;
+}
+}
+//3
+void pop()
+{
+	if(top==NULL)
+	{
+		printf("Underflow");
+		exit(1);
+	}
+	else
+	{
+		struct node *t=top;
+		top=top->next;
+		free(t);
+	}
+}
+//4
+void peek()
+{
+	if(top==NULL)
+	{
+		printf("Underflow");
+		exit(1);
+	}
+	printf("%d ",top->data);
+}
+//5
+void display()
+{
+if(top==NULL)
+{
+printf("Underflow");
+exit(1);
+}
+else{
+struct node *t=top;
+	while(t!=NULL)
+	{
+		printf("%d ",t->data);
+		t=t->next;
+	}
+}
+}
+int main ()
+
+{
+	printf("madhubalan\n192321142\n");
+	printf("push:\n");
+	printf("after push the numbers:\n");
+	push(10);
+	push(20);
+	push(30);
+	push(40);
+	push(50);
+	push(60);
+	push(70);
+	push(80);
+	display();
+	printf("\n\npop:");
+	printf("\nafter pop the number from the top have been deleted\n");
+	pop();
+	display();
+	printf("\n\npeek:");
+	printf("\nthe peek element is\n");
+    peek();
+}
