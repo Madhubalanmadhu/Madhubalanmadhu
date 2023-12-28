@@ -1,0 +1,269 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for a node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to insert a node at the beginning of the list
+void insertAtBeginning(struct Node** head, int newData) {
+    // Allocate memory for new node
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+
+    // Assign data to the new node
+    newNode->data = newData;
+
+    // Check if the list is empty
+    if (*head == NULL) {
+        // Make the new node the only node in the list
+        newNode->next = newNode;
+        *head = newNode;
+        return;
+    }
+
+    // Find the last node in the list
+    struct Node* last = *head;
+    while (last->next != *head) {
+        last = last->next;
+    }
+
+    // Point the new node to the first node
+    newNode->next = *head;
+
+    // Point the last node to the new node
+    last->next = newNode;
+
+    // Update the head to point to the new node
+    *head = newNode;
+}
+
+// Function to insert a node at the end of the list
+void insertAtEnd(struct Node** head, int newData) {
+    // Allocate memory for new node
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+
+    // Assign data to the new node
+    newNode->data = newData;
+
+    // Check if the list is empty
+    if (*head == NULL) {
+        // Make the new node the only node in the list
+        newNode->next = newNode;
+        *head = newNode;
+        return;
+    }
+
+    // Find the last node in the list
+    struct Node* last = *head;
+    while (last->next != *head) {
+        last = last->next;
+    }
+
+    // Point the new node to the first node
+    newNode->next = *head;
+
+    // Point the last node to the new node
+    last->next = newNode;
+}
+
+// Function to delete a node from the beginning of the list
+void deleteFromBeginning(struct Node** head) {
+    // Check if the list is empty
+    if (*head == NULL) {
+        printf("List is empty. Unable to delete.\n");
+        return;
+    }
+
+    // Check if there is only one node in the list
+    if ((*head)->next == *head) {
+        // Free the memory occupied by the node
+        free(*head);
+        *head = NULL;
+        return;
+    }
+
+    // Find the last node in the list
+    struct Node* last = *head;
+    while (last->next != *head) {
+        last = last->next;
+    }
+
+    // Point the head to the second node
+    struct Node* second = (*head)->next;
+    *head = second;
+
+    // Point the last node to the new head
+    last->next = *head;
+
+    // Free the memory occupied by the first node
+    free(second);
+}
+
+// Function to delete a node from the end of the list
+void deleteFromEnd(struct Node** head) {
+    // Check if the list is empty
+    if (*head == NULL) {
+        printf("List is empty. Unable to delete.\n");
+        return;
+    }
+
+    // Check if there is only one node in the list
+    if ((*head)->next == *head) {
+        // Free the memory occupied by the node
+        free(*head);
+        *head = NULL;
+        return;
+    }
+
+    // Find the second last node in the list
+    struct Node* secondLast = *head;
+    while (secondLast->next->next != *head) {
+        secondLast = secondLast->next;
+    }
+
+    // Point the second last node to the first node
+    secondLast->next = *head;
+
+    // Free the memory occupied by the last node
+    free(secondLast->next);
+}
+
+// Function to display the elements of the list
+void display(struct Node* head) {
+    // Check if the list is empty
+    if (head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    // Traverse the list and print the elements
+    struct Node* current = head;
+    do {
+        printf("%d ", current->data);
+        current = current->next;
+    } while (current != head);
+    printf("\n");
+}
+
+// Function to search for an element in the list
+void search(struct Node* head, int key) {
+    // Check if the list is empty
+    if (head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    // Traverse the list and search for the key
+    struct Node* current = head;
+    int found = 0;
+    do {
+        if (current->data == key) {
+            printf("Element found.\n");
+            found = 1;
+            break;
+        }
+        current = current->next;
+    } while (current != head);
+
+    if (!found) {
+        printf("Element not found.\n");
+    }
+}
+
+// Function to sort the elements of the list in ascending order
+void sort(struct Node** head) {
+    // Check if the list is empty or has only one node
+    if (*head == NULL || (*head)->next == *head) {
+        return;
+    }
+
+    // Traverse the list and perform bubble sort
+    struct Node* current = *head;
+    do {
+        struct Node* next = current->next;
+        while (next != *head) {
+            if (current->data > next->data) {
+                // Swap the data of the nodes
+                int temp = current->data;
+                current->data = next->data;
+                next->data = temp;
+            }
+            next = next->next;
+        }
+        current = current->next;
+    } while (current != *head);
+}
+
+// Function to find the maximum and minimum elements in the list
+void findMaxAndMin(struct Node* head) {
+    // Check if the list is empty
+    if (head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    // Initialize max and min with the data of the first node
+    int max = head->data;
+    int min = head->data;
+
+    // Traverse the list and update max and min
+    struct Node* current = head;
+    do {
+        if (current->data > max) {
+            max = current->data;
+        }
+        if (current->data < min) {
+            min = current->data;
+        }
+        current = current->next;
+    } while (current != head);
+
+    printf("Maximum element: %d\n", max);
+    printf("Minimum element: %d\n", min);
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    // Insert nodes at the beginning
+    insertAtBeginning(&head, 5);
+    insertAtBeginning(&head, 3);
+    insertAtBeginning(&head, 8);
+
+    // Insert nodes at the end
+    insertAtEnd(&head, 10);
+    insertAtEnd(&head, 2);
+    insertAtEnd(&head, 7);
+
+    // Display the list
+    printf("List: ");
+    display(head);
+
+    // Search for an element
+    search(head, 2);
+
+    // Sort the list
+    sort(&head);
+
+    // Display the sorted list
+    printf("Sorted List: ");
+    display(head);
+
+    // Find the maximum and minimum elements
+    findMaxAndMin(head);
+
+    // Delete nodes from the beginning
+    deleteFromBeginning(&head);
+    deleteFromBeginning(&head);
+
+    // Delete nodes from the end
+    deleteFromEnd(&head);
+
+    // Display the list after deletion
+    printf("List after deletion: ");
+    display(head);
+
+    return 0;
+}
