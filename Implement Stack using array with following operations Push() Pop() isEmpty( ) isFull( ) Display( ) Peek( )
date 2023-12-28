@@ -1,0 +1,63 @@
+#include<stdio.h>
+int top=-1;
+int size=3;
+int stack[3];
+int isfull()
+{
+	if(top==size-1)
+		return 1;
+	else
+		return 0;
+}
+int isempty()
+{
+	if(top==-1)
+		return 1;
+	else
+		return 0;
+}
+int push(int data)
+{
+	if(!isfull())
+	{
+		top=top+1;
+		stack[top]=data;
+	}
+}
+int pop()
+{
+	int data;
+	if(!isempty())
+	{
+		data=stack[top];
+		top=top-1;
+		return data;
+	}
+}
+void display()
+{
+	for(int i=top;i>=0;i--)
+	{
+		printf("%d ",stack[i]);
+	}
+}
+int peek()
+{
+	return stack[top];
+}
+int main()
+{
+	printf("madhubalan\n192321142\n");
+	printf("Wherther array is empty(1) or full(0): %d",isempty());	
+	push(10);
+	push(20);
+	push(30);
+	printf("\nAfter push\n");
+	display();
+	printf("Wherther array is full(1) or empty(0): %d",isfull());	
+	pop();
+	printf("\nAfter pop\n");
+	display();
+	printf("\nPeek value\n");
+	printf("%d  ",peek());
+}
