@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+	int data;
+	struct node*next;
+}*top,*n;
+void push(int num){
+	n=(struct node*)malloc(sizeof(struct node));
+	n->data=num;
+	n->next=top;
+	top=n;
+}
+void pop(){
+	struct node*t;
+	t=top;
+	if(t==NULL){
+		printf("\nunderflow");
+	}
+	else{
+		top=t->next;
+		printf("\npoped element %d\n",t->data);
+		free(t);
+	}
+}
+void peak(){
+	if(top==NULL){
+		printf("\nstack is empty");
+	}
+	else{
+	    printf("\npeak element %d",top->data);
+	}
+}
+void display(){
+	struct node*t;
+	if(top==NULL){
+		printf("\nstack is empty");
+	}
+	else{
+		t=top;
+		while(t!=NULL){
+			printf("%d,",t->data);
+			t=t->next;
+		}
+	}
+}
+int main(){
+	printf("madhubalan\n192321142\n");
+	push(10);
+	push(20);
+	push(30);
+	display();
+	pop();
+	display();
+	peak();
+}
