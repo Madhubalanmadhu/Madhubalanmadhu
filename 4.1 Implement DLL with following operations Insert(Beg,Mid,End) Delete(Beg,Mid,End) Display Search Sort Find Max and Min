@@ -1,0 +1,180 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* prev;
+    struct Node* next;
+};
+void insertAtBeginning(struct Node** head, int newData) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = newData;
+    newNode->prev = NULL;
+    newNode->next = (*head);
+    if ((*head) != NULL) {
+        (*head)->prev = newNode;
+    }
+
+    (*head) = newNode;
+}
+void insertAtMiddle(struct Node* prevNode, int newData) {
+    if (prevNode == NULL) {
+        printf("Previous node cannot be NULL");
+        return;
+    }
+
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = newData;
+    newNode->next = prevNode->next;
+    newNode->prev = prevNode;
+    prevNode->next = newNode;
+
+    if (newNode->next != NULL) {
+        newNode->next->prev = newNode;
+    }
+}
+
+void insertAtEnd(struct Node** head, int newData) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* last = *head;
+    newNode->data = newData;
+    newNode->next = NULL;
+
+    if (*head == NULL) {
+        newNode->prev = NULL;
+        *head = newNode;
+        return;
+    }
+
+    while (last->next != NULL) {
+        last = last->next;
+    }
+
+    last->next = newNode;
+    newNode->prev = last;
+}
+
+void deleteNode(struct Node** head, struct Node* delNode) {
+    if (*head == NULL || delNode == NULL) {
+        return;
+    }
+
+    if (*head == delNode) {
+        *head = delNode->next;
+    }
+
+    if (delNode->next != NULL) {
+        delNode->next->prev = delNode->prev;
+    }
+
+    if (delNode->prev != NULL) {
+        delNode->prev->next = delNode->next;
+    }
+
+    free(delNode);
+}
+
+void display(struct Node* node) {
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+    printf("\n");
+}
+
+struct Node* search(struct Node* head, int searchData) {
+    struct Node* current = head;
+    while (current != NULL) {
+        if (current->data == searchData) {
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
+
+void sort(struct Node** head) {
+    struct Node* current = *head;
+    struct Node* index = NULL;
+    int temp;
+
+    if (*head == NULL) {
+        return;
+    }
+
+    while (current != NULL) {
+        index = current->next;
+
+        while (index != NULL) {
+            if (current->data > index->data) {
+                temp = current->data;
+                current->data = index->data;
+                index->data = temp;
+            }
+            index = index->next;
+        }
+        current = current->next;
+    }
+}
+
+void findMaxMin(struct Node* head, int* max, int* min) {
+    if (head == NULL) {
+        return;
+    }
+
+    *max = head->data;
+    *min = head->data;
+    struct Node* current = head->next;
+
+    while (current != NULL) {
+        if (current->data > *max) {
+            *max = current->data;
+        }
+        if (current->data < *min) {
+            *min = current->data;
+        }
+        current = current->next;
+    }
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    insertAtBeginning(&head, 5);
+    insertAtBeginning(&head, 10);
+    insertAtBeginning(&head, 15);
+
+    struct Node* middleNode = search(head, 10);
+    insertAtMiddle(middleNode, 20);
+    insertAtMiddle(middleNode, 25);
+
+    insertAtEnd(&head, 30);
+    insertAtEnd(&head, 35);
+
+    printf("DLL: ");
+    display(head);
+
+    struct Node* delNode = search(head, 15);
+    deleteNode(&head, delNode);
+
+    printf("DLL after deletion: ");
+    display(head);
+
+    int searchData = 25;
+    struct Node* searchNode = search(head, searchData);
+    if (searchNode != NULL) {
+        printf("%d found in the DLL\n", searchData);
+    } else {
+        printf("%d not found in the DLL\n", searchData);
+    }
+
+    sort(&head);
+    printf("DLL after sorting: ");
+    display(head);
+
+    int max, min;
+    findMaxMin(head, &max, &min);
+    printf("Maximum value in the DLL: %d\n", max);
+    printf("Minimum value in the DLL: %d\n", min);
+
+    return 0;
+}
