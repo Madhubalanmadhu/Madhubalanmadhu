@@ -49,20 +49,9 @@ Day 2 - Recursion and Search
 
 
 Day 3 – Singly Linked List
-
-	Implement SLL with following operations
+Implement SLL with following operations
 	
-Insert(Beg,Mid,End)
-
-Delete(Beg,Mid,End)
-
-Display
-
-Search
-
-Sort
-
-Find Max and Min
+Insert(Beg,Mid,End) Delete(Beg,Mid,End) Display Search Sort Find Max and Min
 
 	To determine whether a given singly linked list is a palindrome
 	
