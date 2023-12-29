@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+struct Node *front = NULL;
+struct Node *rear = NULL;
+
+void Enqueue(int data) {
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    newNode->data = data;
+
+    if (front == NULL) {
+        front = rear = newNode;
+        rear->next = front;  
+    } else {
+        rear->next = newNode;
+        rear = newNode;
+        rear->next = front;  
+    }
+    printf("%d enqueued to queue\n", data);
+}
+
+int Dequeue() {
+    if (front == NULL) {
+        printf("Queue is empty\n");
+        return -1;
+    }
+
+    int data = front->data;
+
+    if (front == rear) {
+        free(front);
+        front = rear = NULL;
+    } else {
+        struct Node *temp = front;
+        front = front->next;
+        rear->next = front; 
+        free(temp);
+    }
+
+    printf("%d dequeued from queue\n", data);
+    return data;
+}
+
+void Display() {
+    if (front == NULL) {
+        printf("Queue is empty\n");
+        return;
+    }
+
+    struct Node *temp = front;
+    printf("Queue elements: ");
+    do {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    } while (temp != front);
+    printf("\n");
+}
+
+int Front() {
+    if (front == NULL) {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    return front->data;
+}
+
+
+
+int Rear() {
+    if (rear == NULL) {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    return rear->data;
+}
+
+int main() {
+	printf("MADHUBALAN\n192321142\n");
+   
+    Enqueue(10);
+    Enqueue(20);
+    Enqueue(30);
+
+    Display();  
+
+    printf("Front element: %d\n", Front());  
+    printf("Rear element: %d\n", Rear());   
+
+    Dequeue();
+    Display();  
+
+    return 0;
+}
+C:\Users\Admin\Desktop\program ds\7.4.png
