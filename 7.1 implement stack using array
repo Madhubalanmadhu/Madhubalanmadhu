@@ -1,0 +1,62 @@
+#include<stdio.h>
+#define max 10
+int front=-1,rear=-1;
+int Q[max];
+void Enqueue(int num)
+{
+	if(rear==max-1)
+	{
+		printf("Queue is overflow");
+	}
+	else if(front==-1&&rear==-1)
+	{
+		front=rear=0;
+		Q[front]=num;
+	}
+	else
+	{
+		rear=rear+1;
+		Q[rear]=num;
+	}
+}
+void disp()
+{
+	printf("Element in Queue are:\n");
+	for(int i=front;i<=rear;i++)
+	{
+		printf(" %d\n",Q[i]);
+	}
+}
+void Dequeue()
+{
+	if(front==-1)
+	{
+		printf("Queue is Epmty!");
+	}
+	else
+	{
+		printf("Delelting Element %d\n",Q[front]);
+		front=front+1;
+	}
+}
+void peek()
+{
+	printf("Peek Element is: %d\n\n",Q[rear]);
+}
+int main()
+{
+	printf("madhubalan\n192321142\n");
+	printf("Enqueue\n");
+	Enqueue(10);
+	Enqueue(20);
+	Enqueue(30);
+	Enqueue(40);
+	Enqueue(50);
+	disp();
+	peek();
+	printf("Dequeue\n");
+	Dequeue();
+	disp();
+	peek();
+}
+C:\Users\Admin\Desktop\program ds\stack arr 7.1.png
