@@ -1,0 +1,122 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+	int data;
+	struct node *right;
+	struct node *left;
+	int height;
+};
+
+struct node *create(int num)
+{
+	struct node *n;
+	n=(struct node*)malloc(sizeof(struct node));
+	n->data=num;
+	n->right=NULL;	
+	n->left=NULL;
+	n->height=1;
+	return (n);
+}
+
+int max(int a,int b){
+	return (a>b)?a:b;
+}
+
+int height(struct node* n)
+{
+	if(n==NULL){
+	
+		return 0;}
+	return n->height;
+}
+
+int getbalance(struct node *n)
+{
+	if(n==NULL)
+		return 0;
+	return (height(n->left)-height(n->right));
+}
+
+struct node rightrotate(struct node n)
+{
+	struct node* y=n->left;
+	struct node* x=y->right;
+	y->right=n;
+	n->left=x;
+	n->height=max(height(n->left),height(n->right))+1;
+	y->height=max(height(n->left),height(n->right))+1;
+	return y;
+}
+
+struct node leftrotate(struct node n)
+{
+	struct node *y=n->right;
+	struct node *x=y->left;
+	y->left=n;
+	n->right=x;
+	n->height=max(height(n->left),height(n->right))+1;
+	y->height=max(height(n->left),height(n->right))+1;
+	return y;
+}
+
+struct node *insert(struct node *n,int data)
+{
+	if(n==NULL)
+		return(create(data));
+	if(data< n->data)
+		n->left=insert(n->left,data);
+	else if(data>n->data)
+		n->right=insert(n->right,data);
+	else 
+		return n;
+	n->height=1+max(height(n->left),height(n->right));	
+	int balance=getbalance(n);
+	
+	if(balance>1&&data<n->left->data){				//left Left case
+		return rightrotate(n);
+	}
+	if(balance<-1&&data>n->right->data)	{		// Right Right Case 
+		return leftrotate(n);
+	}
+	if(balance>1&&data>n->left->data){				 // Left Right Case 
+		n->left=leftrotate(n->left);
+		return rightrotate(n);
+	}
+	if(balance<-1&&data<n->right->data)	{		// Right Left Case
+		n->right=rightrotate(n->right);
+		return leftrotate(n);
+	}
+		
+	return n;
+}
+
+void printTree(struct node* n, int space) {								// printTree
+    if (n == NULL) {
+        return;
+    }
+    space += 4;
+    printTree(n->right, space);
+    for (int i = 4; i < space; i++) {
+        printf(" ");
+    }
+    printf("%d\n", n->data);
+    printTree(n->left, space);
+}
+
+int main() 
+{ 
+  struct node *root = NULL; 
+  
+  /* Constructing tree given in the above figure */
+  root = insert(root, 10); 
+  root = insert(root, 20); 
+  root = insert(root, 30); 
+  root = insert(root, 40); 
+  root = insert(root, 50); 
+  root = insert(root, 25);
+  printf("\nTraversal of the AVL tree: \n");
+  printTree(root,0);
+  free(root); 
+  return 0;
+}
