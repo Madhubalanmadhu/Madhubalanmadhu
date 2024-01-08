@@ -1,0 +1,221 @@
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef enum {RED, BLACK} Colour;
+
+struct node {
+    int data;
+    struct node* parent;
+    struct node* left;
+    struct node* right;
+    Colour colour;
+};
+
+void rRotate(struct node** root, struct node* y) {
+    struct node* x = y->left;
+    y->left = x->right;
+
+    if (x->right != NULL)
+        x->right->parent = y;
+    x->parent = y->parent;
+    if (y->parent == NULL)
+        *root = x;
+    else if (y == y->parent->left)
+        y->parent->left = x;
+    else
+        y->parent->right = x;
+
+    x->right = y;
+    y->parent = x;
+}
+
+void lRotate(struct node** root, struct node* x) {
+    struct node* y = x->right;
+    x->right = y->left;
+
+    if (y->left != NULL)
+        y->left->parent = x;
+    y->parent = x->parent;
+    if (x->parent == NULL)
+        *root = y;
+    else if (x == x->parent->left)
+        x->parent->left = y;
+    else
+        x->parent->right = y;
+
+    y->left = x;
+    x->parent = y;
+}
+
+void checkrbt(struct node** root, struct node* z) {
+    while (z->parent != NULL && z->parent->colour == RED) {
+        if (z->parent == z->parent->parent->left) {
+            struct node* y = z->parent->parent->right;
+            if (y != NULL && y->colour == RED) {
+                z->parent->colour = BLACK;
+                y->colour = BLACK;
+                z->parent->parent->colour = RED;
+                z = z->parent->parent;
+            } else {
+                if (z == z->parent->right) {
+                    z = z->parent;
+                    lRotate(root, z);
+                }
+                z->parent->colour = BLACK;
+                z->parent->parent->colour = RED;
+                rRotate(root, z->parent->parent);
+            }
+        } else {
+            struct node* y = z->parent->parent->left;
+            if (y != NULL && y->colour == RED) {
+                z->parent->colour = BLACK;
+                y->colour = BLACK;
+                z->parent->parent->colour = RED;
+                z = z->parent->parent;
+            } else {
+                if (z == z->parent->left) {
+                    z = z->parent;
+                    rRotate(root, z);
+                }
+                z->parent->colour = BLACK;
+                z->parent->parent->colour = RED;
+                lRotate(root, z->parent->parent);
+            }
+        }
+    }
+    (*root)->colour = BLACK;
+}
+
+
+struct node* insert(struct node* root, int num) {
+    struct node* n = (struct node*)malloc(sizeof(struct node));
+    n->data = num;
+    n->left = NULL;
+    n->right = NULL;
+    n->parent = NULL;
+    n->colour = RED;
+
+    struct node* a = NULL;
+    struct node* b = root;
+
+    while (b != NULL) {
+        a = b;
+        if (n->data < b->data)
+            b = b->left;
+        else
+            b = b->right;
+    }
+
+    n->parent = a;
+    if (a == NULL)
+        root = n;
+    else if (n->data < a->data)
+        a->left = n;
+    else
+        a->right = n;
+
+    checkrbt(&root, n);
+    return root;
+}
+
+struct node* delfind(struct node* root, int num) {
+    if (root == NULL) {
+        return NULL;
+    }
+    if (num > root->data) {
+        return delfind(root->right, num);
+    } else if (num < root->data) {
+        return delfind(root->left, num);
+    }
+    if (root->data == num) {
+        return root;
+    }
+    return NULL; 
+}
+
+struct node* deletion(struct node** root, int num) {
+    struct node* t = delfind(*root, num);
+    if (t == NULL) {
+        printf("Node not found for deletion\n");
+        return *root;
+    }
+
+    if (t->left == NULL) {
+        if (t->right != NULL) {
+            t->right->parent = t->parent;
+        }
+        if (t == t->parent->left) {
+            t->parent->left = t->right;
+        } else {
+            t->parent->right = t->right;
+        }
+        checkrbt(root, t->parent);
+    } else if (t->right == NULL) {
+        if (t->left != NULL) {
+            t->left->parent = t->parent;
+        }
+        if (t == t->parent->left) {
+            t->parent->left = t->left;
+        } else {
+            t->parent->right = t->left;
+        }
+        checkrbt(root, t->parent);
+    } else {
+        struct node* minRight = t->right;
+        while (minRight->left != NULL) {
+            minRight = minRight->left;
+        }
+
+        if (minRight->parent != t) {
+            minRight->parent->left = minRight->right;
+            if (minRight->right != NULL) {
+                minRight->right->parent = minRight->parent;
+            }
+
+            minRight->right = t->right;
+            t->right->parent = minRight;
+        }
+
+        minRight->left = t->left;
+        t->left->parent = minRight;
+
+        if (t == t->parent->left) {
+            t->parent->left = minRight;
+        } else {
+            t->parent->right = minRight;
+        }
+        minRight->parent = t->parent;
+
+        checkrbt(root, minRight->parent);
+    }
+
+    free(t);
+    return *root;
+}
+
+void inorderTraverse(struct node* root) {
+    if (root != NULL) {
+        inorderTraverse(root->left);
+        if (root->colour == BLACK) {
+            printf("%d Black node\n", root->data);
+        } else {
+            printf("%d Red node\n", root->data);
+        }
+        inorderTraverse(root->right);
+    }
+}
+int main(){
+	printf("madhubalan\n192321142\n");
+    struct node* root = NULL;
+    int array[] = {10,18,7,15,16,30,25,40,60};
+    for (int i = 0; i < 9; i++) {
+        root = insert(root, array[i]);
+    }
+    printf("\n");
+    inorderTraverse(root);
+    root=deletion(&root,40);
+    printf("\n");
+    inorderTraverse(root);
+}
