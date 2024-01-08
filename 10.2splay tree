@@ -1,0 +1,183 @@
+//Splay Tree
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct node {
+    int data;
+    struct node *parent;
+    struct node *left;
+    struct node *right;
+
+};
+
+struct node *insert(struct node *root, int num) {
+    struct node *n = (struct node *)malloc(sizeof(struct node));
+    n->data = num;
+    n->left = NULL;
+    n->right = NULL;
+    n->parent = NULL;
+
+    if (root == NULL) {
+        root = n;
+        return root;
+    }
+
+    struct node *current = root;
+    struct node *parent = NULL;
+
+    while (current != NULL) {
+        parent = current;
+        if (n->data < current->data)
+            current = current->left;
+        else
+            current = current->right;
+    }
+
+    n->parent = parent;
+    if (n->data < parent->data)
+        parent->left = n;
+    else
+        parent->right = n;
+
+ 
+    splay(&root, n);
+    return root;
+}
+
+void splay(struct node **root, struct node *x) {
+    while (x->parent != NULL) {
+        if (x->parent->parent == NULL) {
+            if (x == x->parent->left)
+                rightRotate(root, x->parent);
+            else
+                leftRotate(root, x->parent);
+        } else if (x == x->parent->left && x->parent == x->parent->parent->left) {
+            rightRotate(root, x->parent->parent);
+            rightRotate(root, x->parent);
+        } else if (x == x->parent->right && x->parent == x->parent->parent->right) {
+            leftRotate(root, x->parent->parent);
+            leftRotate(root, x->parent);
+        } else if (x == x->parent->right && x->parent == x->parent->parent->left) {
+            leftRotate(root, x->parent);
+            rightRotate(root, x->parent);
+        } else {
+            rightRotate(root, x->parent);
+            leftRotate(root, x->parent);
+        }
+    }
+}
+
+struct node* delfind(struct node* root, int num) {
+    if (root == NULL) {
+        return NULL;
+    }
+    if (num > root->data) {
+        return delfind(root->right, num);
+    } else if (num < root->data) {
+        return delfind(root->left, num);
+    }
+    if (root->data == num) {
+        return root;
+    }
+    return NULL; 
+}
+
+struct node* deletion(struct node** root, int num) {
+    struct node *t = delfind(*root, num);
+    if (t == NULL) {
+        printf("Node not found for deletion\n");
+        return *root;
+    }
+    splay(root, t);
+    struct node *temp = *root;
+
+    if (temp->left == NULL) {
+        *root = temp->right;
+        if (*root != NULL) {
+            (*root)->parent = NULL;
+        }
+    } else if (temp->right == NULL) {
+        *root = temp->left;
+        if (*root != NULL) {
+            (*root)->parent = NULL;
+        }
+    } else {
+        struct node *minRight = temp->right;
+        while (minRight->left != NULL) {
+            minRight = minRight->left;
+        }
+
+        splay(root, minRight);
+
+        minRight->left = temp->left;
+        temp->left->parent = minRight;
+
+        *root = minRight;
+        (*root)->parent = NULL;
+    }
+    free(temp);
+    return *root;
+}
+
+void rightRotate(struct node **root, struct node *y) {
+    struct node *x = y->left;
+    y->left = x->right;
+
+    if (x->right != NULL)
+        x->right->parent = y;
+    x->parent = y->parent;
+
+    if (y->parent == NULL)
+        *root = x;
+    else if (y == y->parent->left)
+        y->parent->left = x;
+    else
+        y->parent->right = x;
+
+    x->right = y;
+    y->parent = x;
+}
+
+void leftRotate(struct node **root, struct node *x) {
+    struct node *y = x->right;
+    x->right = y->left;
+
+    if (y->left != NULL)
+        y->left->parent = x;
+    y->parent = x->parent;
+
+    if (x->parent == NULL)
+        *root = y;
+    else if (x == x->parent->left)
+        x->parent->left = y;
+    else
+        x->parent->right = y;
+
+    y->left = x;
+    x->parent = y;
+}
+
+void inorderTraverse(struct node* root) {
+    if (root != NULL) {
+        inorderTraverse(root->left);
+        printf("%d ",root->data);
+        inorderTraverse(root->right);
+    }
+}
+int main(){
+	printf("madhubalan\n192321142\n");
+    struct node* root = NULL;
+    int array[] = {10,12,5,4,20,8};
+    for (int i = 0; i < 6; i++) {
+        root = insert(root, array[i]);
+    }
+    printf("\n");
+    inorderTraverse(root);
+    root=deletion(&root,10);
+    printf("\nAfter Deletion\n");
+    inorderTraverse(root);
+    
+    return 0;
+}
