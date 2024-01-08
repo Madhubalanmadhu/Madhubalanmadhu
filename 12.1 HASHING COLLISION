@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define SIZE 10
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* hashTable[SIZE];
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insert(int data) {
+    int index = data % SIZE;
+    struct Node* newNode = createNode(data);
+
+    if (hashTable[index] == NULL) {
+        hashTable[index] = newNode;
+    } else {
+        struct Node* temp = hashTable[index];
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+void search(int data) {
+    int index = data % SIZE;
+    struct Node* temp = hashTable[index];
+
+    if (temp == NULL) {
+        printf("Value not found in the hash table.\n");
+        return;
+    }
+
+    while (temp != NULL) {
+        if (temp->data == data) {
+            printf("Value found in the hash table.\n");
+            return;
+        }
+        temp = temp->next;
+    }
+
+    printf("Value not found in the hash table.\n");
+}
+
+void display() {
+    for (int i = 0; i < SIZE; i++) {
+        printf("Index %d: ", i);
+        struct Node* temp = hashTable[i];
+        while (temp != NULL) {
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+printf("madhubalan\n192321142\n");
+    for (int i = 0; i < SIZE; i++) {
+        hashTable[i] = NULL;
+    }
+    insert(5);
+    insert(15);
+    insert(25);
+    insert(35);
+    insert(45);
+
+    display();
+
+    search(25);
+    search(50);
+
+    return 0;
+}
