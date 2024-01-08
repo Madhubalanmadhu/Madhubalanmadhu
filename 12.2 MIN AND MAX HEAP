@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+struct Heap {
+    int arr[MAX_SIZE];
+    int size;
+};
+
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void heapifyUpMinHeap(struct Heap* heap, int index) {
+    while (index > 0 && heap->arr[index] < heap->arr[(index - 1) / 2]) {
+        swap(&heap->arr[index], &heap->arr[(index - 1) / 2]);
+        index = (index - 1) / 2;
+    }
+}
+
+void insertMinHeap(struct Heap* heap, int value) {
+    if (heap->size < MAX_SIZE) {
+        heap->arr[heap->size] = value;
+        heapifyUpMinHeap(heap, heap->size);
+        heap->size++;
+    } else {
+        printf("Heap is full. Cannot insert.\n");
+    }
+}
+
+void printMinHeap(struct Heap* heap) {
+    printf("Min Heap: ");
+    for (int i = 0; i < heap->size; i++) {
+        printf("%d ", heap->arr[i]);
+    }
+    printf("\n");
+}
+
+void heapifyUpMaxHeap(struct Heap* heap, int index) {
+    while (index > 0 && heap->arr[index] > heap->arr[(index - 1) / 2]) {
+        swap(&heap->arr[index], &heap->arr[(index - 1) / 2]);
+        index = (index - 1) / 2;
+    }
+}
+
+void insertMaxHeap(struct Heap* heap, int value) {
+    if (heap->size < MAX_SIZE) {
+        heap->arr[heap->size] = value;
+        heapifyUpMaxHeap(heap, heap->size);
+        heap->size++;
+    } else {
+        printf("Heap is full. Cannot insert.\n");
+    }
+}
+
+void printMaxHeap(struct Heap* heap) {
+    printf("Max Heap: ");
+    for (int i = 0; i < heap->size; i++) {
+        printf("%d ", heap->arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+	printf("MADHUBALAN\N192321142\N");
+	
+    struct Heap minHeap, maxHeap;
+    minHeap.size = 0;
+    maxHeap.size = 0;
+
+    insertMinHeap(&minHeap, 3);
+    insertMinHeap(&minHeap, 1);
+    insertMinHeap(&minHeap, 5);
+    insertMinHeap(&minHeap, 8);
+    insertMinHeap(&minHeap, 2);
+
+    printMinHeap(&minHeap);
+
+    insertMaxHeap(&maxHeap, 3);
+    insertMaxHeap(&maxHeap, 1);
+    insertMaxHeap(&maxHeap, 5);
+    insertMaxHeap(&maxHeap, 8);
+    insertMaxHeap(&maxHeap, 2);
+
+    printMaxHeap(&maxHeap);
+
+    return 0;
+}
