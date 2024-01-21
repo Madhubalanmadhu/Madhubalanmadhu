@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_VERTICES 100
+
+struct Graph {
+    int vertices;
+    int matrix[MAX_VERTICES][MAX_VERTICES];
+};
+
+struct Graph* createMatrix(struct Graph* graph, int vertices){
+	graph->vertices=vertices;
+	int i,j;
+	for(i=0;i<vertices;i++){
+		for(j=0;j<vertices;j++){
+			graph->matrix[i][j]=0;
+		}
+	}
+	return graph;
+}
+
+void insertVertices(struct Graph *graph,int from,int to){
+	graph->matrix[from-1][to-1]=1;
+	graph->matrix[to-1][from-1]=1;
+	return;
+}
+
+void print(struct Graph *graph){
+	int i,j;
+	for(i=0;i<graph->vertices;i++){
+		for(j=0;j<graph->vertices;j++){
+			printf("%d ",graph->matrix[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+int main() {
+	struct Graph graph;
+	createMatrix(&graph,5);
+	insertVertices(&graph,1,2);
+    insertVertices(&graph,1,4);
+    insertVertices(&graph,2,4);
+    insertVertices(&graph,3,1);
+    insertVertices(&graph,4,4);
+    insertVertices(&graph,4,5);
+    insertVertices(&graph,5,2);
+    print(&graph);
+    return 0;
+}
