@@ -36,6 +36,7 @@ void print(struct Graph *graph){
 }
 
 int main() {
+    printf("madhubalan\n192321142\n");
 	struct Graph graph;
 	createMatrix(&graph,5);
 	insertVertices(&graph,1,2);
