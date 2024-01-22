@@ -84,7 +84,7 @@ void topologicalSort(struct Graph* graph) {
 }
 
 int main() {
-	printf("Name: Philip Gracian Sanova\nReg no: 192324023\n");
+	printf("Name: madhubalan\nReg no: 192321142\n");
     struct Graph* graph = createGraph(6);
     addEdge(graph, 5, 2);
     addEdge(graph, 5, 0);
